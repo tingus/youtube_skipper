@@ -6,16 +6,28 @@ function skipVideoAds() {
     // Check to see if video player is present, as we only want to attempt to skip ads on the video
     const videoPlayer = document.querySelector('#player');
     if (videoPlayer) {
-        // Start an interval and check if skip button is present on the video
-        setInterval(() => {
-            // get skip button
-            const videoSkipButton = document.querySelector('.ytp-ad-skip-button');
-            if (videoSkipButton) {
-                // skip the ad
-                videoSkipButton.click();
-            }
-        }, 300);
+        // get skip button
+        const videoSkipButton = document.querySelector('.ytp-ad-skip-button');
+        if (videoSkipButton) {
+            // skip the ad
+            videoSkipButton.click();
+        }
     }
 }
 
-skipVideoAds();
+function removeAdBlockerWarning() {
+    const warningBackdrop = document.querySelector('tp-yt-iron-overlay-backdrop');
+    const warningBox = document.querySelector('tp-yt-paper-dialog');
+    if (warningBackdrop) {
+        warningBackdrop.remove();
+    }
+    if (warningBox) {
+        warningBox.remove();
+    }
+}
+
+// Start an interval and skip ads or remove the adblock warning
+setInterval(() => {
+    skipVideoAds();
+    removeAdBlockerWarning();
+}, 300);
